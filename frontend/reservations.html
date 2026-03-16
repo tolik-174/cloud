@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Tickets — MotoCross Event Hub</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="navbar-brand">
+    <div class="brand-icon">🏍</div>
+    <div class="brand-text">Moto<span>Cross</span></div>
+  </a>
+  <div class="nav-links">
+    <a href="index.html" id="nav-home">Home</a>
+    <a href="login.html" id="nav-login">Sign In</a>
+    <a href="register.html" id="nav-register">Register</a>
+    <a href="reservations.html" id="nav-reservations" style="display:none">My Tickets</a>
+    <button id="logout-btn" class="logout-btn" style="display:none">Logout</button>
+  </div>
+</nav>
+
+<div class="track-divider"></div>
+
+<main class="container">
+  <div class="reservations-layout">
+
+    <div class="sticky-panel">
+      <div class="form-card">
+        <div class="panel-title">New Booking</div>
+
+        <form id="reservation-form">
+          <input type="hidden" id="editing_reservation_id" value="">
+          <input type="hidden" id="ticket_type" value="standard">
+
+          <div class="form-group">
+            <label class="form-label" for="event_id">Select Event</label>
+            <select class="form-select" id="event_id" required></select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Ticket Type</label>
+            <div class="ticket-type-select">
+              <div class="ticket-option selected" data-value="standard">
+                <div class="ticket-option-name">Standard</div>
+                <div class="ticket-option-price">27 $ / ticket</div>
+              </div>
+              <div class="ticket-option" data-value="vip">
+                <div class="ticket-option-name">⚡ VIP</div>
+                <div class="ticket-option-price">267$ / ticket</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Quantity</label>
+            <div style="display:flex;align-items:center;gap:16px">
+              <div class="qty-control">
+                <button type="button" class="qty-btn" onclick="changeQty(-1)">−</button>
+                <div class="qty-num" id="qty-display">1</div>
+                <button type="button" class="qty-btn" onclick="changeQty(1)">+</button>
+              </div>
+              <span style="font-size:13px;color:var(--gray)">max 10 per order</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Choose Seats</label>
+            <div class="seat-hint">
+              Select exactly <span id="seat-required-count">1</span> seat(s). Gray seats are taken.
+            </div>
+            <div class="seat-legend">
+              <div class="seat-legend-item"><span class="seat seat-mini"></span> Available</div>
+              <div class="seat-legend-item"><span class="seat seat-mini selected"></span> Selected</div>
+              <div class="seat-legend-item"><span class="seat seat-mini taken"></span> Taken</div>
+            </div>
+            <div class="seat-map-wrap">
+              <div class="seat-map-header">Track View</div>
+              <div id="seat-map" class="seat-map"></div>
+            </div>
+            <div id="selected-seats-display" class="selected-seats-display">Selected seats: none</div>
+          </div>
+
+          <hr class="form-divider">
+
+          <div class="summary-box">
+            <div class="summary-row">
+              <span id="sum-type">Standard × 1</span>
+              <span id="sum-base">27 $</span>
+            </div>
+            <div class="summary-row">
+              <span>Service fee (10%)</span>
+              <span id="sum-fee">3,5 $</span>
+            </div>
+            <div class="summary-row">
+              <span>Seats</span>
+              <span id="sum-seats">—</span>
+            </div>
+            <div class="summary-row total">
+              <span>Total</span>
+              <span class="summary-total-amount" id="sum-total">27 $</span>
+            </div>
+          </div>
+
+          <button type="submit" id="submit-btn" class="btn btn-primary btn-full btn-lg">Confirm Booking</button>
+          <button type="button" id="cancel-edit-btn" class="btn btn-ghost btn-full" style="display:none; margin-top:10px;">Cancel Edit</button>
+        </form>
+
+        <p id="reservation-message" class="message"></p>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-header">
+        <div class="section-title">My Reservations</div>
+        <div class="section-count" id="res-count"></div>
+      </div>
+
+      <div id="reservations-list" class="cards-grid" style="grid-template-columns:1fr"></div>
+    </div>
+
+  </div>
+</main>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="js/api.js"></script>
+<script src="js/reservations.js"></script>
+</body>
+</html>

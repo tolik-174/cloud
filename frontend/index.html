@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MotoCross Event Hub</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="navbar-brand">
+    <div class="brand-icon">
+      <i data-lucide="bike"></i>
+    </div>
+    <div class="brand-text">Moto<span>Cross</span></div>
+  </a>
+  <div class="nav-links">
+    <a href="index.html" id="nav-home">Home</a>
+    <a href="login.html" id="nav-login">Sign In</a>
+    <a href="register.html" id="nav-register">Register</a>
+    <a href="reservations.html" id="nav-reservations" style="display:none">My Tickets</a>
+    <button id="logout-btn" class="logout-btn" style="display:none">Logout</button>
+  </div>
+</nav>
+
+<div class="track-divider"></div>
+
+<header class="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow">Season 2026</div>
+    <h2>Book Tickets for the Best <em>MotoCross</em> Events</h2>
+    <p>Explore upcoming races, choose your event, and reserve your place in seconds.</p>
+  </div>
+</header>
+
+<main class="container">
+  <div class="section-header">
+    <div class="section-title">Upcoming Events</div>
+    <div class="section-count" id="event-count"></div>
+  </div>
+
+  <div id="events" class="cards-grid"></div>
+</main>
+
+<script src="js/api.js"></script>
+<script>
+  async function loadEvents() {
+    const container = document.getElementById("events");
+
+    container.innerHTML = Array(3).fill(`
+      <div class="card">
+        <div class="skeleton" style="height:12px;width:60px;margin-bottom:12px"></div>
+        <div class="skeleton" style="height:22px;margin-bottom:16px"></div>
+        <div class="skeleton" style="height:14px;width:80%;margin-bottom:8px"></div>
+        <div class="skeleton" style="height:14px;width:60%;margin-bottom:8px"></div>
+        <div class="skeleton" style="height:14px;margin-bottom:16px"></div>
+      </div>
+    `).join("");
+
+    try {
+      const events = await apiGet("/events/");
+      container.innerHTML = "";
+
+      const countEl = document.getElementById("event-count");
+      if (countEl) {
+        countEl.textContent = `${events.length} event${events.length !== 1 ? "s" : ""}`;
+      }
+
+      if (events.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-icon">
+              <i data-lucide="calendar-x"></i>
+            </div>
+            <div class="empty-title">No events yet</div>
+            <p>Check back soon for upcoming races.</p>
+          </div>
+        `;
+        lucide.createIcons();
+        return;
+      }
+
+      events.forEach(event => {
+        const card = document.createElement("div");
+        card.className = "card";
+
+        card.innerHTML = `
+          <div class="card-eyebrow">Motocross Event</div>
+          <h3>${event.title}</h3>
+
+          <div class="card-meta">
+            <div class="card-meta-item">
+              <div class="card-meta-icon">
+                <i data-lucide="map-pin"></i>
+              </div>
+              ${event.location}
+            </div>
+            <div class="card-meta-item">
+              <div class="card-meta-icon">
+                <i data-lucide="calendar"></i>
+              </div>
+              ${event.event_date}
+            </div>
+          </div>
+
+          ${event.description ? `<p class="card-desc">${event.description}</p>` : ""}
+
+          <div class="card-footer">
+            <a href="reservations.html" class="btn btn-primary">
+              <i data-lucide="ticket"></i>
+              Book Tickets
+            </a>
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+
+      lucide.createIcons();
+
+    } catch (error) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-icon">
+            <i data-lucide="triangle-alert"></i>
+          </div>
+          <div class="empty-title">Failed to load events</div>
+          <p>${error.message}</p>
+        </div>
+      `;
+      lucide.createIcons();
+    }
+  }
+
+  loadEvents();
+  lucide.createIcons();
+</script>
+</body>
+</html>
