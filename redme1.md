@@ -124,16 +124,9 @@ Výšku nad zemou počíta planner z vlastného odhadu povrchu, nejde teda o nez
 ### Obrázky
 
 ![Gazebo - kopce](results/images/gazebo_hills.png)
-![Gazebo - mesto](results/images/gazebo_city.png)
-![RViz - mapa kopcov](results/images/rviz_hills.png)
-![RViz - mapa mesta](results/images/rviz_city.png)
-![RViz - plánovaná trasa](results/images/rviz_path.png)
+
 
 ### Video
-
-- Kopce: [ODKAZ NA VIDEO]
-- Mesto: [ODKAZ NA VIDEO]
-
 ### Mapy (PLY)
 
 `results/hills_map.ply`, `results/city_map.ply` (otvoriť napríklad v CloudCompare alebo MeshLab).
@@ -167,7 +160,4 @@ results/                 výsledné mapy a obrázky
 - tf2 a RViz2 (dokumentácia ROS 2 Jazzy)
 - H. Choset: *Coverage for robotics - A survey of recent results*, Annals of Mathematics and Artificial Intelligence 31, 2001, s. 113-126
 - E. Galceran, M. Carreras: *A survey on coverage path planning for robotics*, Robotics and Autonomous Systems 61(12), 2013, s. 1258-1276
-- P. Bourke: *PLY - Polygon File Format*, https://paulbourke.net/dataformats/ply/
-- Pri vývoji (návrh a ladenie kódu, dokumentácia) bol použitý AI asistent Claude (Anthropic).
-
-[Doplňte všetky ďalšie tutoriály a stránky, z ktorých ste skutočne čerpali.]
+- Pri vývoji (návrh a ladenie kódu, dokumentácia) bol použitý AI asistent
