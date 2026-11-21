@@ -3,7 +3,7 @@
 
 **Predmet:** Navigačné metódy v robotike (zimný semester 2026/27)
 **Zadanie č. 8**, repozitár `8_UT_10_50`
-**Tím:** [Meno Priezvisko], [Meno Priezvisko], [Meno Priezvisko]
+**Tím:** Anatolii Vasylov, Rostyslav Rodzhuk
 
 ## 1. Cieľ
 
